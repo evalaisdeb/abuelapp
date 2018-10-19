@@ -14,43 +14,115 @@ import './shared-styles.js';
 class MyView2 extends PolymerElement {
   static get template() {
         return html`
-          <style include="shared-styles">
+            <style include="shared-styles">
             :host {
               display: block;
 
               padding: 10px;
             }
-          </style>
-          
-          <template is="dom-repeat" items="{{getItems()}}" as="item">
-      <template is="dom-if" if="{{averiguarDia(item.days)}}">
-        <input type="checkbox" checked="{{item.Checked}}"> <span> {{item.name}} </span> 
-        <span class=""> - Precio: $<span>{{item.price}}</span></span>
-        <div>
-          <template is="dom-if" if="{{tieneAgregados(item.extras)}}">
-            Agregados:   
-            <template class="" is="dom-repeat" items="{{item.extras}}" as="agreg"> 
-                  <p style="text-indent:20px; line-height: 1px;">
-                  <input type="checkbox" checked="{{item.Checked}}"> <span>{{agreg.name}}</span>
-                    - $ <span>{{agreg.price}}</span>
-                  </p>
-            </template>
-          </template>
-        </div>
-        <br><br>
-      </template>  
-    </template>
-    
-    <div>
-        <a on-click="clickedCancelButton" href="view1">
-            <button>CANCEL</button>
-        </a>
-        
-        <a on-click="clickedOKButton" href="view1">
-            <button>OK</button>
-        </a>
-    </div>    
+            </style>
+            <div class="card">
+                <template id="foodSelector" if="{{foodSelector}}" is="dom-if">
+                    <template as="item" is="dom-repeat" items="{{getItems()}}">
+                        <template if="{{averiguarDia(item.days)}}" is="dom-if">
+                            <div>
+                                <span>
+                                    {{item.name}}
+                                </span>
+                                <a  on-click="selectFood">
+                                    <button>
+                                        (+)
+                                    </button>
+                                </a>
+                            </div>
+                        </template>
+                    </template>
+                    <br>
+                    </br>
+                    <a href="view1" on-click="clickedCancelButton">
+                        <button>
+                            CANCEL
+                        </button>
+                    </a>
+                    <a href="view1" on-click="clickedOKButton">
+                        <button>
+                            OK
+                        </button>
+                    </a>
+                </template>
+                <template id="detailsSelector" if="{{detailsSelector}}" is="dom-if">
+                    <template as="item" is="dom-repeat" items="{{getItems()}}">
+                        <template if="{{averiguarDia(item.days)}}" is="dom-if">
+                            <input checked="{{item.Checked}}" type="checkbox">
+                                <span>
+                                    {{item.name}}
+                                </span>
+                                <span class="">
+                                    - Precio: $
+                                    <span>
+                                        {{item.price}}
+                                    </span>
+                                </span>
+                                <div>
+                                    <template if="{{tieneAgregados(item.extras)}}" is="dom-if">
+                                        Agregados:
+                                        <template as="agreg" class="" is="dom-repeat" items="{{item.extras}}">
+                                            <p style="text-indent:20px; line-height: 1px;">
+                                                <input checked="{{item.Checked}}" type="checkbox">
+                                                    <span>
+                                                        {{agreg.name}}
+                                                    </span>
+                                                    - $
+                                                    <span>
+                                                        {{agreg.price}}
+                                                    </span>
+                                                </input>
+                                            </p>
+                                        </template>
+                                    </template>
+                                </div>
+                                <br>
+                                    <br>
+                                    </br>
+                                </br>
+                            </input>
+                        </template>
+                    </template>
+                    <div>
+                        <a href="view1" on-click="clickedCancelButton">
+                            <button>
+                                CANCEL
+                            </button>
+                        </a>
+                        <a href="view1" on-click="clickedOKButton">
+                            <button>
+                                OK
+                            </button>
+                        </a>
+                    </div>
+                </template>
+            </div>
+
         `;
+    }
+    static get properties() {
+        return {
+            orderPage:  {type: String, value: "foodSelector", notify: true},
+            foodSelector:  {type: Boolean, value: true, notify: true},
+            detailsSelector:  {type: Boolean,  value: false, notify: true}
+            selectedFood:  {type: Object, value:{}}
+        }
+    }
+
+
+    showFoodSelector(){
+        console.log("showFoodSelector");
+        return this.orderPage === "foodSelector";
+    }
+
+    showDetailsSelector(){
+        console.log("showDetailsSelector");
+        return this.orderPage === "detailsSelector";
     }
 
     averiguarDia(dias){
@@ -102,6 +174,23 @@ class MyView2 extends PolymerElement {
             "price": "80",
             "days": ["jueves"]
         }]
+    }
+
+
+    clickedCancelButton(){
+        console.log("CANCEL");
+        flag = true;
+    }
+    clickedOKButton(){
+        console.log("OK");
+    }
+
+    selectFood(oEvent){
+        // oEvent.model.get is the getter for all properties of "item" in your bound array
+        this.selectedFood = oEvent.model.get('item');
+        this.orderPage = "detailsSelector";
+        this.detailsSelector = true;
+        this.foodSelector = false;
     }
 
 
