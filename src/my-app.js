@@ -84,9 +84,10 @@ class MyApp extends PolymerElement {
         <app-drawer id="drawer" slot="drawer" swipe-open="[[narrow]]">
           <app-toolbar>Menu</app-toolbar>
           <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
-            <a name="view1" href="[[rootPath]]view1">View One</a>
-            <a name="view2" href="[[rootPath]]view2">View Two</a>
-            <a name="view3" href="[[rootPath]]view3">View Three</a>
+            <a name="view1" href="[[rootPath]]view1"> Agregar Pedido </a>
+            <a name="view2" href="[[rootPath]]view2"> Confirmar Pedido </a>
+            <a name="view3" href="[[rootPath]]view3"> Confirmar Pedido </a>
+            <a name="view4" href="[[rootPath]]view4"> Listado de Pedidos </a>
           </iron-selector>
         </app-drawer>
 
@@ -104,6 +105,7 @@ class MyApp extends PolymerElement {
             <my-view1 name="view1"></my-view1>
             <my-view2 name="view2"></my-view2>
             <my-view3 name="view3"></my-view3>
+            <my-view4 name="view4"></my-view4>
             <my-view404 name="view404"></my-view404>
           </iron-pages>
         </app-header-layout>
