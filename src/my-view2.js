@@ -22,14 +22,67 @@ class MyView2 extends PolymerElement {
         }
       </style>
 
-      <div class="card">
-        <div class="circle">2</div>
-        <h1>View Two</h1>
-        <p>Ea duis bonorum nec, falli paulo aliquid ei eum.</p>
-        <p>Id nam odio natum malorum, tibique copiosae expetenda mel ea.Detracto suavitate repudiandae no eum. Id adhuc minim soluta nam.Id nam odio natum malorum, tibique copiosae expetenda mel ea.</p>
-      </div>
+    <template is="dom-repeat" items="{{getItems()}}" as="item">
+        <template is="dom-if" if="{{averiguarDia(item.dias)}}">
+        <div> 
+            <span> {{item.nombre}} </span> 
+            <button on-click="clickedButton(item.nombre)"> + </button>
+        </div>
+    </template>
+    
     `;
   }
+
+    clickedButton(comida) {
+        console.log("asd");
+    }
+
+    averiguarDia(dias){
+        var days = ["domingo","lunes", "martes", "miercoles", "jueves", "viernes", "sabado"];
+        var d = new Date();
+        var hoy = days[d.getDay()];
+        return (dias.indexOf(hoy)!==-1);
+    }
+
+    getItems() {
+        return [{
+            "nombre": "Milanesa Carne",
+            "precio": "100",
+            "dias": ["lunes", "martes", "miercoles", "jueves", "viernes"],
+            "agregados": [{"nombre": "napolitana", "precio": "10"},
+                {"nombre": "pure", "precio": "0"},
+                {"nombre": "ensalada", "precio": "0"}]
+        }, {
+            "nombre": "Milanesa Pollo",
+            "precio": "100",
+            "dias": ["lunes", "martes", "miercoles", "jueves", "viernes"],
+            "agregados": [{"nombre": "napolitana", "precio": "10"},
+                {"nombre": "pure", "precio": "0"},
+                {"nombre": "ensalada", "precio": "0"}]
+        }, {
+            "nombre": "Pollo al horno con papas",
+            "precio": "120",
+            "dias": ["lunes"]
+        }, {
+            "nombre": "Lentejas",
+            "precio": "120",
+            "dias": ["martes"]
+        }, {
+            "nombre": "Mondongo",
+            "precio": "110",
+            "dias": ["viernes"]
+        }, {
+            "nombre": "Risotto con pollo",
+            "precio": "90",
+            "dias": ["miercoles"]
+        }, {
+            "nombre": "Agnolottis de verdura",
+            "precio": "80",
+            "dias": ["jueves"]
+        }]
+    }
+
+
 }
 
 window.customElements.define('my-view2', MyView2);
