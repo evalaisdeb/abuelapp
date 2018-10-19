@@ -47,8 +47,8 @@ class MyView1 extends PolymerElement {
     `;
     }
 
-    tieneAgregados(agregados){
-        if(agregados != null && agregados.length > 0)
+    tieneAgregados(extras){
+        if(extras != null && extras.length > 0)
             return true;
         return false;
     }
@@ -62,39 +62,39 @@ class MyView1 extends PolymerElement {
 
     getItems() {
         return [{
-            "nombre": "Milanesa Carne",
-            "precio": "100",
-            "dias": ["lunes", "martes", "miercoles", "jueves", "viernes"],
-            "agregados": [{"nombre": "napolitana", "precio": "10"},
-                {"nombre": "pure", "precio": "0"},
-                {"nombre": "ensalada", "precio": "0"}]
+            "name": "Milanesa Carne",
+            "price": "100",
+            "days": ["lunes", "martes", "miercoles", "jueves", "viernes"],
+            "extras": [{"name": "napolitana", "price": "10"},
+                {"name": "pure", "price": "0"},
+                {"name": "ensalada", "price": "0"}]
         }, {
-            "nombre": "Milanesa Pollo",
-            "precio": "100",
-            "dias": ["lunes", "martes", "miercoles", "jueves", "viernes"],
-            "agregados": [{"nombre": "napolitana", "precio": "10"},
-                {"nombre": "pure", "precio": "0"},
-                {"nombre": "ensalada", "precio": "0"}]
+            "name": "Milanesa Pollo",
+            "price": "100",
+            "days": ["lunes", "martes", "miercoles", "jueves", "viernes"],
+            "extras": [{"name": "napolitana", "price": "10"},
+                {"name": "pure", "price": "0"},
+                {"name": "ensalada", "price": "0"}]
         }, {
-            "nombre": "Pollo al horno con papas",
-            "precio": "120",
-            "dias": ["lunes"]
+            "name": "Pollo al horno con papas",
+            "price": "120",
+            "days": ["lunes"]
         }, {
-            "nombre": "Lentejas",
-            "precio": "120",
-            "dias": ["martes"]
+            "name": "Lentejas",
+            "price": "120",
+            "days": ["martes"]
         }, {
-            "nombre": "Mondongo",
-            "precio": "110",
-            "dias": ["viernes"]
+            "name": "Mondongo",
+            "price": "110",
+            "days": ["viernes"]
         }, {
-            "nombre": "Risotto con pollo",
-            "precio": "90",
-            "dias": ["miercoles"]
+            "name": "Risotto con pollo",
+            "price": "90",
+            "days": ["miercoles"]
         }, {
-            "nombre": "Agnolottis de verdura",
-            "precio": "80",
-            "dias": ["jueves"]
+            "name": "Agnolottis de verdura",
+            "price": "80",
+            "days": ["jueves"]
         }]
     }
 }

@@ -23,20 +23,19 @@ class MyView2 extends PolymerElement {
           </style>
 
         <template is="dom-repeat" items="{{getItems()}}" as="item">
-            <template is="dom-if" if="{{averiguarDia(item.dias)}}">
+            <template is="dom-if" if="{{averiguarDia(item.days)}}">
             <div>
-                <span> {{item.nombre}} </span>
-                <a on-click="clickedButton"> + </a>
+                <span> {{item.name}} </span>
+                <button on-click="clickedButton"> + </button>
             </div>
         </template>
-
         `;
     }
 
 
      clickedButton(oEvent){
         // oEvent.model.get is the getter for all properties of "item" in your bound array
-        console.log(oEvent.model.get('item.nombre'));
+        console.log(oEvent.model.get('item.name'));
     }
     averiguarDia(dias){
         var days = ["domingo","lunes", "martes", "miercoles", "jueves", "viernes", "sabado"];
@@ -47,39 +46,39 @@ class MyView2 extends PolymerElement {
 
     getItems() {
         return [{
-            "nombre": "Milanesa Carne",
-            "precio": "100",
-            "dias": ["lunes", "martes", "miercoles", "jueves", "viernes"],
-            "agregados": [{"nombre": "napolitana", "precio": "10"},
-                {"nombre": "pure", "precio": "0"},
-                {"nombre": "ensalada", "precio": "0"}]
+            "name": "Milanesa Carne",
+            "price": "100",
+            "days": ["lunes", "martes", "miercoles", "jueves", "viernes"],
+            "extras": [{"name": "napolitana", "price": "10"},
+                {"name": "pure", "price": "0"},
+                {"name": "ensalada", "price": "0"}]
         }, {
-            "nombre": "Milanesa Pollo",
-            "precio": "100",
-            "dias": ["lunes", "martes", "miercoles", "jueves", "viernes"],
-            "agregados": [{"nombre": "napolitana", "precio": "10"},
-                {"nombre": "pure", "precio": "0"},
-                {"nombre": "ensalada", "precio": "0"}]
+            "name": "Milanesa Pollo",
+            "price": "100",
+            "days": ["lunes", "martes", "miercoles", "jueves", "viernes"],
+            "extras": [{"name": "napolitana", "price": "10"},
+                {"name": "pure", "price": "0"},
+                {"name": "ensalada", "price": "0"}]
         }, {
-            "nombre": "Pollo al horno con papas",
-            "precio": "120",
-            "dias": ["lunes"]
+            "name": "Pollo al horno con papas",
+            "price": "120",
+            "days": ["lunes"]
         }, {
-            "nombre": "Lentejas",
-            "precio": "120",
-            "dias": ["martes"]
+            "name": "Lentejas",
+            "price": "120",
+            "days": ["martes"]
         }, {
-            "nombre": "Mondongo",
-            "precio": "110",
-            "dias": ["viernes"]
+            "name": "Mondongo",
+            "price": "110",
+            "days": ["viernes"]
         }, {
-            "nombre": "Risotto con pollo",
-            "precio": "90",
-            "dias": ["miercoles"]
+            "name": "Risotto con pollo",
+            "price": "90",
+            "days": ["miercoles"]
         }, {
-            "nombre": "Agnolottis de verdura",
-            "precio": "80",
-            "dias": ["jueves"]
+            "name": "Agnolottis de verdura",
+            "price": "80",
+            "days": ["jueves"]
         }]
     }
 
