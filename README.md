@@ -27,11 +27,10 @@ Install [Polymer CLI](https://github.com/Polymer/polymer-cli) using
 
     npm install -g polymer-cli@next
 
-##### Initialize project from template
-
-    mkdir my-app
-    cd my-app
-    polymer init polymer-3-starter-kit
+##### Initialize project from template (esto es para levantarlo de 0, no lo hagas)
+mkdir my-app
+cd my-app
+polymer init polymer-3-starter-kit
 
 ### Start the development server
 
