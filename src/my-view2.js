@@ -13,30 +13,31 @@ import './shared-styles.js';
 
 class MyView2 extends PolymerElement {
   static get template() {
-    return html`
-      <style include="shared-styles">
-        :host {
-          display: block;
+        return html`
+          <style include="shared-styles">
+            :host {
+              display: block;
 
-          padding: 10px;
-        }
-      </style>
+              padding: 10px;
+            }
+          </style>
 
-    <template is="dom-repeat" items="{{getItems()}}" as="item">
-        <template is="dom-if" if="{{averiguarDia(item.dias)}}">
-        <div> 
-            <span> {{item.nombre}} </span> 
-            <button on-click="clickedButton(item.nombre)"> + </button>
-        </div>
-    </template>
-    
-    `;
-  }
+        <template is="dom-repeat" items="{{getItems()}}" as="item">
+            <template is="dom-if" if="{{averiguarDia(item.dias)}}">
+            <div>
+                <span> {{item.nombre}} </span>
+                <a on-click="clickedButton"> + </a>
+            </div>
+        </template>
 
-    clickedButton(comida) {
-        console.log("asd");
+        `;
     }
 
+
+     clickedButton(oEvent){
+        // oEvent.model.get is the getter for all properties of "item" in your bound array
+        console.log(oEvent.model.get('item.nombre'));
+    }
     averiguarDia(dias){
         var days = ["domingo","lunes", "martes", "miercoles", "jueves", "viernes", "sabado"];
         var d = new Date();
