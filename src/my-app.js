@@ -181,12 +181,11 @@ class MyApp extends PolymerElement {
 
   onAddOrderItem(event) {
     this.set('route.path', '/order-details');
-    var currentFood = event.detail.food;
-    console.log(currentFood);
-    if(currentFood.extras === undefined || currentFood.extras.length === 0){
-        this.order.push(event.detail.food);
+    this.currentFood = event.detail.food;
+    console.log(this.currentFood);
+    if(this.currentFood.extras === undefined || currentFood.extras.length === 0){
+        this.order.push(this.currentFood);
     }
-    console.log("order:");
     console.log(this.order);
   }
 }

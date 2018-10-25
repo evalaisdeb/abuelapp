@@ -22,50 +22,45 @@ class OrderDetails extends PolymerElement {
             }
             </style>
             <div class="card">
-                <template as="item" is="dom-repeat" items="{{getItems()}}">
-                    <template if="{{averiguarDia(item.days)}}" is="dom-if">
-                        <input checked="{{item.Checked}}" type="checkbox">
-                            <span>
-                                {{item.name}}
-                            </span>
-                            <span class="">
-                                - Precio: $
-                                <span>
-                                    {{item.price}}
-                                </span>
-                            </span>
-                            <div>
-                                <template if="{{tieneAgregados(item.extras)}}" is="dom-if">
-                                    Agregados:
-                                    <template as="agreg" class="" is="dom-repeat" items="{{item.extras}}">
-                                        <p style="text-indent:20px; line-height: 1px;">
-                                            <input checked="{{item.Checked}}" type="checkbox">
-                                                <span>
-                                                    {{agreg.name}}
-                                                </span>
-                                                - $
-                                                <span>
-                                                    {{agreg.price}}
-                                                </span>
-                                            </input>
-                                        </p>
-                                    </template>
-                                </template>
-                            </div>
-                            <br>
-                                <br>
-                                </br>
-                            </br>
-                        </input>
-                    </template>
-                </template>
+                    <span>
+                        {{food.name}}
+                    </span>
+                    <span class="">
+                        - Precio: $
+                        <span>
+                            {{food.price}}
+                        </span>
+                    </span>
+                    <div>
+                        <template if="{{tieneAgregados(food.extras)}}" is="dom-if">
+                            Agregados:
+                            <template as="agreg" class="" is="dom-repeat" items="{{food.extras}}">
+                                <p style="text-indent:20px; line-height: 1px;">
+                                    <input checked="{{food.Checked}}" type="checkbox">
+                                        <span>
+                                            {{agreg.name}}
+                                        </span>
+                                        - $
+                                        <span>
+                                            {{agreg.price}}
+                                        </span>
+                                    </input>
+                                </p>
+                            </template>
+                        </template>
+                    </div>
+                    <br>
+                        <br>
+                        </br>
+                    </br>
+                </input>
                 <div>
-                    <a href="view1" on-click="clickedCancelButton">
+                    <a on-click="clickedCancelButton">
                         <button>
                             CANCEL
                         </button>
                     </a>
-                    <a href="view1" on-click="clickedOKButton">
+                    <a on-click="clickedOKButton">
                         <button>
                             OK
                         </button>
@@ -77,7 +72,7 @@ class OrderDetails extends PolymerElement {
     }
     static get properties() {
         return {
-            food:  {type: Object, notify: true},
+            food:  {type: Object, notify: true, reflectToAttribute: true},
             orderPage:  {type: String, value: "foodSelector", notify: true},
             foodSelector:  {type: Boolean, value: true, notify: true},
             detailsSelector:  {type: Boolean,  value: false, notify: true},
@@ -88,16 +83,6 @@ class OrderDetails extends PolymerElement {
     super.connectedCallback();
     console.log('my-element created!');
   }
-
-    showFoodSelector(){
-        console.log("showFoodSelector");
-        return this.orderPage === "foodSelector";
-    }
-
-    showDetailsSelector(){
-        console.log("showDetailsSelector");
-        return this.orderPage === "detailsSelector";
-    }
 
     averiguarDia(dias){
         var days = ["domingo","lunes", "martes", "miercoles", "jueves", "viernes", "sabado"];
@@ -113,8 +98,6 @@ class OrderDetails extends PolymerElement {
     }
 
     getItems() {
-    console.log("getItems food");
-    console.log(this.food);
         return [{
             "name": "Milanesa Carne",
             "price": "100",
@@ -154,8 +137,8 @@ class OrderDetails extends PolymerElement {
 
 
     clickedCancelButton(){
+        console.log(this.food);
         console.log("CANCEL");
-        flag = true;
     }
     clickedOKButton(){
         console.log("OK");
