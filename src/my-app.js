@@ -10,6 +10,7 @@
 
 import { PolymerElement, html } from '@polymer/polymer/polymer-element.js';
 import { setPassiveTouchGestures, setRootPath } from '@polymer/polymer/lib/utils/settings.js';
+import '@granite-elements/granite-bootstrap/granite-bootstrap.js';
 import '@polymer/app-layout/app-drawer/app-drawer.js';
 import '@polymer/app-layout/app-drawer-layout/app-drawer-layout.js';
 import '@polymer/app-layout/app-header/app-header.js';
@@ -72,7 +73,7 @@ class MyApp extends PolymerElement {
           font-weight: bold;
         }
       </style>
-
+      <style include="granite-bootstrap"></style>
       <app-location route="{{route}}" url-space-regex="^[[rootPath]]">
       </app-location>
 
@@ -84,9 +85,7 @@ class MyApp extends PolymerElement {
         <app-drawer id="drawer" slot="drawer" swipe-open="[[narrow]]">
           <app-toolbar>Menu</app-toolbar>
           <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
-            <a name="view1" href="[[rootPath]]view1"> Agregar Pedido </a>
-            <a name="view2" href="[[rootPath]]view2"> Confirmar Pedido </a>
-            <a name="view3" href="[[rootPath]]view3"> Confirmar Pedido </a>
+            <a name="add-order" href="[[rootPath]]add-order">Pedido</a>
             <a name="view4" href="[[rootPath]]view4"> Listado de Pedidos </a>
           </iron-selector>
         </app-drawer>
@@ -103,9 +102,8 @@ class MyApp extends PolymerElement {
 
           <iron-pages selected="[[page]]" attr-for-selected="name" role="main">
             <my-view1 name="view1"></my-view1>
-            <my-view2 name="view2"></my-view2>
-            <my-view3 name="view3"></my-view3>
-            <my-view4 name="view4"></my-view4>
+            <add-order name="add-order"></add-order>
+            <order-details food="[[currentFood]]" name="order-details"></add-details>
             <my-view404 name="view404"></my-view404>
           </iron-pages>
         </app-header-layout>
@@ -121,7 +119,9 @@ class MyApp extends PolymerElement {
         observer: '_pageChanged'
       },
       routeData: Object,
-      subroute: Object
+      subroute: Object,
+      order: Object,
+      currentFood: Object
     };
   }
 
@@ -131,14 +131,24 @@ class MyApp extends PolymerElement {
     ];
   }
 
+  ready() {
+    super.ready();
+    // Custom elements polyfill safe way to indicate an element has been upgraded.
+    this.order = [];
+    this.removeAttribute('unresolved');
+    // listen for custom events
+    this.addEventListener('add-cart-item', (e)=>this.onAddOrderItem(e));
+  }
+
   _routePageChanged(page) {
      // Show the corresponding page according to the route.
      //
      // If no page was found in the route data, page will be an empty string.
      // Show 'view1' in that case. And if the page doesn't exist, show 'view404'.
+     console.log("page: " + page);
     if (!page) {
-      this.page = 'view1';
-    } else if (['view1', 'view2', 'view3'].indexOf(page) !== -1) {
+      this.page = 'add-order';
+    } else if (['view1', 'add-order', 'order-details'].indexOf(page) !== -1) {
       this.page = page;
     } else {
       this.page = 'view404';
@@ -149,7 +159,6 @@ class MyApp extends PolymerElement {
       this.$.drawer.close();
     }
   }
-
   _pageChanged(page) {
     // Import the page component on demand.
     //
@@ -159,16 +168,26 @@ class MyApp extends PolymerElement {
       case 'view1':
         import('./my-view1.js');
         break;
-      case 'view2':
-        import('./my-view2.js');
-        break;
-      case 'view3':
-        import('./my-view3.js');
+      case 'add-order':
+        import('./add-order.js');
+      case 'order-details':
+        import('./order-details.js');
         break;
       case 'view404':
         import('./my-view404.js');
         break;
     }
+  }
+
+  onAddOrderItem(event) {
+    this.set('route.path', '/order-details');
+    var currentFood = event.detail.food;
+    console.log(currentFood);
+    if(currentFood.extras === undefined || currentFood.extras.length === 0){
+        this.order.push(event.detail.food);
+    }
+    console.log("order:");
+    console.log(this.order);
   }
 }
 

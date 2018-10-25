@@ -41,6 +41,8 @@ $_documentContainer.innerHTML = `<dom-module id="shared-styles">
         font-size: 22px;
       }
     </style>
+    <style include="granite-bootstrap"></style>
+
   </template>
 </dom-module>`;
 
